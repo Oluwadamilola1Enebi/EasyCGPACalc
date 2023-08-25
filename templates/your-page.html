@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto" xmlns="http://www.w3.org/1999/html">
+  <head>
+    <script src="../assets/js/color-modes.js"></script>
+    <script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js" type="text/javascript"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+
+    <title>EasyCGPACalc</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/carousel/">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+
+
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Koulen&family=Lato&family=Nunito&family=Playfair+Display:ital@1&family=Prata&family=Raleway:ital,wght@1,100&family=Roboto&family=Roboto+Condensed&family=Teko&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@300;700&family=Chakra+Petch:wght@500&family=Dai+Banna+SIL:wght@300&family=Inter:wght@500&family=Lisu+Bosa:wght@200&family=Roboto:wght@500&display=swap');
+
+
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        width: 100%;
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .btn-bd-primary {
+        --bd-violet-bg: #712cf9;
+        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+        --bs-btn-font-weight: 600;
+        --bs-btn-color: var(--bs-white);
+        --bs-btn-bg: var(--bd-violet-bg);
+        --bs-btn-border-color: var(--bd-violet-bg);
+        --bs-btn-hover-color: var(--bs-white);
+        --bs-btn-hover-bg: #6528e0;
+        --bs-btn-hover-border-color: #6528e0;
+        --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+        --bs-btn-active-color: var(--bs-btn-hover-color);
+        --bs-btn-active-bg: #5a23c8;
+        --bs-btn-active-border-color: #5a23c8;
+      }
+      .bd-mode-toggle {
+        z-index: 1500;
+      }
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='css/styles.css')}}" rel="stylesheet">
+  </head>
+  <body>
+
+
+
+<header data-bs-theme="dark">
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+      <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse" id="navbarCollapse" style="">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{ url_for('home') }}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('logout') }}">Log Out</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+
+<div style="margin:6vw;">
+
+<div class="overlay">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto" style="margin-top:3rem;margin-bottom:5rem;">
+          <div class="page-heading">
+            <h1 style="font-style:italic; color:#313866">Welcome {{ current_user.name.split(" ")[0] }}</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+{% if current_user.semesters: %}
+<div class="row">
+    <div id="colchart-container" class="col-sm-6" style="padding-right:3vw; margin-bottom:2rem;"></div>
+  <div id="linechart-container" class="col-sm-6" style="padding-right:3vw; margin-bottom:2rem;"></div>
+</div>
+
+
+
+  <h2 class="mt-4">Semesters List</h2>
+  <hr>
+
+<div class="table-responsive-sm">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Semester</th>
+      <th scope="col">Num Courses</th>
+      <th scope="col">CGPA</th>
+      <th scope="col">GPA</th>
+
+    </tr>
+  </thead>
+  <tbody>
+  {% for semester in current_user.semesters: %}
+    <tr>
+      <td>{{ semester.semester_name }}</td>
+      <td>{{ semester.num_courses }}</td>
+      <td>{{ semester.present_cgpa }}</td>
+      <td>{{ semester.gpa }}</td>
+      <td><a href="{{url_for('delete_semester', semester_id=semester.id) }}" style="text-decoration:none">❌</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+  {% endif %}
+
+
+
+<div style="text-align:right;">
+{% if current_user.semesters: %}
+<a href="{{ url_for('add_new_course') }}" ><button class="btn btn-primary" style="margin-top:3rem;" type="button">Add New Semester</button></a>
+{% else: %}
+  <p style="margin-top:3rem;">Add semester results to automatically calculate your CGPA and visualise your progress!<a href="{{ url_for('add_new_course') }}" ><button class="btn btn-primary" style="margin:1rem;" type="button">Add New Semester</button></a></p>
+{% endif %}
+  </div>
+
+  </div>
+
+<!-- FOOTER -->
+
+</main>
+
+<script>
+
+        var chart = new ej.charts.Chart({
+            title: 'GPA Per Semester',
+            tooltip: {enable: true},
+            //Initializing Primary X Axis
+            primaryXAxis: {
+                valueType: 'Category',
+                labelIntersectAction: 'Rotate45',
+            },
+            //Initializing Primary Y Axis
+             primaryYAxis: {
+                minimum: 0,
+                maximum: 5,
+
+            },
+
+            //Initializing Chart Series
+            series: [
+                {
+                    type: 'Column',
+                    dataSource: [
+                    {% for semester in current_user.semesters: %}
+                        { semester: "{{ semester.semester_name }}", gpa: {{ semester.gpa }} },
+                    {% endfor %}
+                    ],
+                    xName: 'semester',
+                    yName: 'gpa',
+                    columnWidth: 1.2,
+                    columnSpacing: 0.5,
+                }
+            ],
+            width: '100%', height: '80%',
+        });
+        chart.appendTo('#colchart-container');
+
+        var chart = new ej.charts.Chart({
+            title: 'CGPA Progression',
+            tooltip: {enable: true},
+            //Initializing Primary X Axis
+            primaryXAxis: {
+                valueType: 'Category',
+                labelIntersectAction: 'Rotate45',
+
+            },
+            //Initializing Primary Y Axis
+             primaryYAxis: {
+                minimum: 0,
+                maximum: 5,
+                stripLines:[
+            { start: 0, end: 2, color: '#FF6969', visible: true, zIndex: 'Behind', opacity: 0.5 },
+            { start: 2, end: 4, color: 'skyblue', opacity: 0.5, visible: true, zIndex: 'Behind' },
+            { start: 4, end: 5, color: '#3CCF4E', opacity: 0.5, visible: true, zIndex: 'Behind' }]
+            },
+
+            //Initializing Chart Series
+            series: [
+            {
+                    type: 'Column',
+                    fill: '#5C5470',
+                    opacity : 3,
+                    dataSource: [
+                    {% for semester in current_user.semesters: %}
+                        { semester: "{{ semester.semester_name }}", cgpa: {{ semester.present_cgpa }} },
+                    {% endfor %}
+                    ],
+                    xName: 'semester',
+                    yName: 'cgpa',
+                    columnWidth: 0.75,
+                    columnSpacing: 1.5,
+                },
+                {
+                    type: 'Spline',
+                    fill: 'red',
+                    width: 2,
+                    dataSource: [
+                    {% for semester in current_user.semesters: %}
+                        { semester: "{{ semester.semester_name }}", cgpa: {{ semester.present_cgpa }} },
+                    {% endfor %}
+                    ],
+                    xName: 'semester',
+                    yName: 'cgpa',
+                }
+            ],
+            width: '100%', height: '80%',
+        });
+        chart.appendTo('#linechart-container');
+    </script>
+<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    </body>
+</html>

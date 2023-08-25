@@ -1,0 +1,39 @@
+{% block content %}
+{% include "header.html" %}
+
+
+<main>
+  <div class="container py-4">
+    <header class="pb-3 mb-4 border-bottom">
+      <div class="d-flex align-items-center text-body-emphasis text-decoration-none">
+           <span class="fs-4">Result:</span>
+      </div>
+    </header>
+
+    <div class="mb-4 bg-body-tertiary rounded-3">
+      <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Your GPA</h1>
+
+        {% if logged_in: %}
+        <p class="col-md-8" style="font-size:3.7rem; padding-bottom:2rem;">{{ semester.gpa }}/5</p>
+        <a href="{{ url_for('save', semester_id=semester.id) }}" ><button class="btn btn-primary" type="button">Save</button></a>
+
+        {% else: %}
+        <p class="col-md-8" style="font-size:3.7rem; padding-bottom:2rem;">{{ gpa }}/5</p>
+        <p><em>You have to be logged in to save results!</em></p>
+        <p><a href="{{ url_for('login') }}" ><button class="btn btn-primary" type="button">Log In</button></a> or <a href="{{ url_for('register') }}" style="text-decoration:none">Create an account</a> </p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</main>
+
+
+<!-- FOOTER -->
+</main>
+
+<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    </body>
+</html>
+{% endblock %}
